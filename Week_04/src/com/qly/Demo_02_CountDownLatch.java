@@ -1,32 +1,22 @@
-package qly;
+package com.qly;
 
-public class Demo_05_Synchronized {
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    private static int result;
+public class Demo_02_CountDownLatch {
 
     public static void main(String[] args) throws InterruptedException {
-        Demo_05_Synchronized demo = new Demo_05_Synchronized();
+        CountDownLatch cdl = new CountDownLatch(1);
         long start = System.currentTimeMillis();
         // 异步执行
-        Thread t = new Thread(() -> {
-            demo.set();
-        });
-        t.start();
-        demo.get();
+        AtomicInteger result = new AtomicInteger();
+        new Thread(() -> {
+            result.set(sum());
+            cdl.countDown();
+        }).start();
+        cdl.await();
         System.out.println("异步计算结果为：" + result);
         System.out.println("使用时间：" + (System.currentTimeMillis() - start) + " ms");
-    }
-
-    private synchronized void set() {
-        result = sum();
-        notifyAll();
-    }
-
-    private synchronized int get() throws InterruptedException {
-        while (result == 0) {
-            wait();
-        }
-        return result;
     }
 
     private static int sum() {

@@ -1,4 +1,4 @@
-package qly;
+package com.qly;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;

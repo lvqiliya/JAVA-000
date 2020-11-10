@@ -1,22 +1,32 @@
-package qly;
+package com.qly;
 
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicInteger;
+public class Demo_05_Synchronized {
 
-public class Demo_04_Semaphore {
+    private static int result;
 
     public static void main(String[] args) throws InterruptedException {
-        Semaphore semaphore = new Semaphore(0);
+        Demo_05_Synchronized demo = new Demo_05_Synchronized();
         long start = System.currentTimeMillis();
         // 异步执行
-        AtomicInteger result = new AtomicInteger();
-        new Thread(() -> {
-            result.set(sum());
-            semaphore.release();
-        }).start();
-        semaphore.acquire();
+        Thread t = new Thread(() -> {
+            demo.set();
+        });
+        t.start();
+        demo.get();
         System.out.println("异步计算结果为：" + result);
         System.out.println("使用时间：" + (System.currentTimeMillis() - start) + " ms");
+    }
+
+    private synchronized void set() {
+        result = sum();
+        notifyAll();
+    }
+
+    private synchronized int get() throws InterruptedException {
+        while (result == 0) {
+            wait();
+        }
+        return result;
     }
 
     private static int sum() {

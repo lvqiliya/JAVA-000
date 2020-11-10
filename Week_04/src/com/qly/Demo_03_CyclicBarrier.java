@@ -1,4 +1,4 @@
-package qly;
+package com.qly;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;

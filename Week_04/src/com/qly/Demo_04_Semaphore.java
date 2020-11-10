@@ -1,20 +1,20 @@
-package qly;
+package com.qly;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Demo_02_CountDownLatch {
+public class Demo_04_Semaphore {
 
     public static void main(String[] args) throws InterruptedException {
-        CountDownLatch cdl = new CountDownLatch(1);
+        Semaphore semaphore = new Semaphore(0);
         long start = System.currentTimeMillis();
         // 异步执行
         AtomicInteger result = new AtomicInteger();
         new Thread(() -> {
             result.set(sum());
-            cdl.countDown();
+            semaphore.release();
         }).start();
-        cdl.await();
+        semaphore.acquire();
         System.out.println("异步计算结果为：" + result);
         System.out.println("使用时间：" + (System.currentTimeMillis() - start) + " ms");
     }
