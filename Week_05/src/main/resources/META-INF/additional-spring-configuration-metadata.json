@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "name": "klass.studentNames",
+      "type": "java.lang.String",
+      "description": "Description for klass.studentNames.",
+      "defaultValue": "zhangsan,lisi"
+    },
+    {
+      "name": "klass.studentAges",
+      "type": "java.lang.Integer",
+      "description": "Description for klass.myClassIds.",
+      "defaultValue": "11,22"
+    }
+  ]
+}
