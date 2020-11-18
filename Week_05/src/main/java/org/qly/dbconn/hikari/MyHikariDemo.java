@@ -1,4 +1,4 @@
-package org.qly.hikari;
+package org.qly.dbconn.hikari;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.pool.HikariPool;
